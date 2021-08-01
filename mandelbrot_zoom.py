@@ -85,7 +85,7 @@ while running:
                                0], 0, WIDTH, MIN_X, MAX_X)
             y = convert_ranges(pygame.mouse.get_pos()[
                                1], 0, HEIGHT, MIN_Y, MAX_Y)
-            if event.button == 1: # right click
+            if event.button == 1: # left click
                 MAX_ITERATIONS_COUNT += 100
                 zoom /= 5
                 MIN_X = x - zoom
@@ -93,7 +93,7 @@ while running:
                 MIN_Y = y - zoom
                 MAX_Y = y + zoom
 
-            elif event.button == 3: # left click
+            elif event.button == 3: # right click
                 if MAX_ITERATIONS_COUNT - 100 < MAX_ITERATIONS_DEFAULT:
                     MAX_ITERATIONS_COUNT = MAX_ITERATIONS_DEFAULT
                 zoom *= 5
