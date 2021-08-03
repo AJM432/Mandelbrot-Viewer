@@ -10,7 +10,7 @@ MAX_Y = DEFAULT_MAX_Y = 2
 
 # sets viewing area of display
 WIDTH, HEIGHT = 1000, 1000
-MAX_ITERATIONS_DEFAULT = MAX_ITERATIONS_COUNT = 500
+MAX_ITERATIONS_DEFAULT = MAX_ITERATIONS_COUNT = 200
 
 
 # colorsys function to convert hsv color to rgb color values
@@ -36,9 +36,10 @@ def convert_ranges(value, value_min, value_max, new_min, new_max):
 # calculates the escape radius of a complex number
 @jit(nopython=True)
 def num_iterations_mandelbrot(c, MAX_ITERATIONS):  # c must be complex number
-    i = z = 0
-    while z.real + z.imag < 4.0 and i < MAX_ITERATIONS:
-        z = z*z + c  # mandelbrot
+    i = 0
+    z = 0
+    while z.real < 2.0 and z.imag < 2.0 and i < MAX_ITERATIONS:
+        z = z**2 + c
         i += 1
     return i
 
@@ -60,8 +61,8 @@ def create_Mandelbrot(MIN_X, MAX_X, MIN_Y, MAX_Y, MAX_ITERATIONS):
             num_iterations = num_iterations_mandelbrot(
                 complex(x, y), MAX_ITERATIONS)
             if num_iterations < MAX_ITERATIONS:
-                rgb_color = hsv_to_rgb(
-                    num_iterations/MAX_ITERATIONS, 1, 1) 
+                rgb_color = hsv_to_rgb(num_iterations/MAX_ITERATIONS, 1, 1) 
+                # rgb_color = [num_iterations*5, num_iterations*2, num_iterations*3]
                 mandelbrot_array[x_count, y_count, 0:3] = rgb_color
     return mandelbrot_array
 
@@ -75,6 +76,8 @@ pygame.surfarray.blit_array(screen, array)
 running = True
 x = 0
 y = 0
+zoom_change = 5
+iteration_change = 200
 zoom = 1
 while running:
     for event in pygame.event.get():
@@ -85,18 +88,21 @@ while running:
                                0], 0, WIDTH, MIN_X, MAX_X)
             y = convert_ranges(pygame.mouse.get_pos()[
                                1], 0, HEIGHT, MIN_Y, MAX_Y)
-            if event.button == 1: # left click
-                MAX_ITERATIONS_COUNT += 100
-                zoom /= 5
+            # print(f"{x:.30f}, {y:.30f}")
+            if event.button == 1: # right click
+                MAX_ITERATIONS_COUNT += iteration_change
+                zoom /= zoom_change
                 MIN_X = x - zoom
                 MAX_X = x + zoom
                 MIN_Y = y - zoom
                 MAX_Y = y + zoom
 
-            elif event.button == 3: # right click
-                if MAX_ITERATIONS_COUNT - 100 < MAX_ITERATIONS_DEFAULT:
+            elif event.button == 3: # left click
+                if MAX_ITERATIONS_COUNT - iteration_change < MAX_ITERATIONS_DEFAULT:
                     MAX_ITERATIONS_COUNT = MAX_ITERATIONS_DEFAULT
-                zoom *= 5
+                else:
+                    MAX_ITERATIONS_COUNT -= iteration_change
+                zoom *= zoom_change
                 MIN_X = x - zoom
                 MAX_X = x + zoom
                 MIN_Y = y - zoom
