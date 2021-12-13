@@ -10,7 +10,7 @@ MAX_Y = DEFAULT_MAX_Y = 2
 
 # sets viewing area of display
 WIDTH, HEIGHT = 1000, 1000
-MAX_ITERATIONS_DEFAULT = MAX_ITERATIONS_COUNT = 200
+MAX_ITERATIONS_DEFAULT = MAX_ITERATIONS_COUNT = 500
 
 
 # colorsys function to convert hsv color to rgb color values
@@ -37,10 +37,25 @@ def convert_ranges(value, value_min, value_max, new_min, new_max):
 @jit(nopython=True)
 def num_iterations_mandelbrot(c, MAX_ITERATIONS):  # c must be complex number
     i = 0
-    z = 0
-    while z.real < 2.0 and z.imag < 2.0 and i < MAX_ITERATIONS:
+    # z = 0
+    z = c # julia set
+
+    while abs(z) < 2 and i < MAX_ITERATIONS:
+        # z = z*z - 0.835 - 0.2321j # Julia
+        # z = (abs(z.real) + 1j*abs(z.imag))**2 -1.7556874999999998 - 0.029812500000000026j# burning ship ship part
+        # z = (abs(z.real) + 1j*abs(z.imag))**2 + c
+        # z = 1/np.e * np.e**z
+        # z = z.real*z.real - z.bimag*z.imag + 2*z.real*z.imag*1j + c # simplified mandelbrot
+        # z = z*z - 1.669672974891228 + 0.00000000000008583574767955249j # julia
+        # z = 1/(z.real*z.real + 2*z.real*z.imag*1j - z.imag*z.imag) + c
+        # z = 1/z**2 + c
+        # z = (abs(z.real) + 1j*abs(z.imag))**2+ c
         z = z**2 + c
+
+    
+        # z = (abs(z.real) + 1j*abs(z.imag))**2 + c # burning ship
         i += 1
+    # return i + 1 - np.log(np.log(abs(z)))/np.log(2) # mandelbrot smooth coloring
     return i
 
 
@@ -48,7 +63,6 @@ def num_iterations_mandelbrot(c, MAX_ITERATIONS):  # c must be complex number
 @jit(nopython=True)
 def create_Mandelbrot(MIN_X, MAX_X, MIN_Y, MAX_Y, MAX_ITERATIONS):
     mandelbrot_array = np.zeros((WIDTH, HEIGHT, 3), dtype=np.uint8)
-
     x_count = y_count = -1
     num_iterations = 0
     rgb_color = 0
@@ -62,7 +76,7 @@ def create_Mandelbrot(MIN_X, MAX_X, MIN_Y, MAX_Y, MAX_ITERATIONS):
                 complex(x, y), MAX_ITERATIONS)
             if num_iterations < MAX_ITERATIONS:
                 rgb_color = hsv_to_rgb(num_iterations/MAX_ITERATIONS, 1, 1) 
-                # rgb_color = [num_iterations*5, num_iterations*2, num_iterations*3]
+                # rgb_color = [num_iterations*1, num_iterations*8.43, num_iterations*5.06]
                 mandelbrot_array[x_count, y_count, 0:3] = rgb_color
     return mandelbrot_array
 
@@ -77,7 +91,7 @@ running = True
 x = 0
 y = 0
 zoom_change = 5
-iteration_change = 200
+iteration_change = 0
 zoom = 1
 while running:
     for event in pygame.event.get():
