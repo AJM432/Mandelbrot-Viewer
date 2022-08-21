@@ -11,6 +11,10 @@ An interactive Mandelbrot Set explorer
  
 - Finally, you can save your current view of the fractal by pressing the s key on your keyboard.
 
+## Live Demo
+![mandelbrot_c](https://user-images.githubusercontent.com/49791407/185815986-e3d71a78-c089-4960-8b77-f73f995e3a46.gif)
+
+
 ## Examples
 Here are some example images from deep within the mandelbrot set
 
