@@ -28,3 +28,6 @@ Here are some example images from deep within the mandelbrot set
  <img src="https://user-images.githubusercontent.com/49791407/185982760-8ac494c4-01a3-46d9-849c-1fa5691c9fb6.png" width=30%>
  <img src="https://user-images.githubusercontent.com/49791407/185982762-0c7e0247-c739-41d7-98eb-8b5a679e93fc.png" width=30%>
 </div>
+
+## License
+Discord-Bot is licensed under the ![MIT license](https://github.com/AJM432/Mandelbrot-Viewer/blob/main/LICENSE.md).
