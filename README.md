@@ -5,7 +5,9 @@
 
 <br>
 
-![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=blue&color=white) ![](https://img.shields.io/tokei/lines/github/AJM432/Mandelbrot-Viewer) ![](https://img.shields.io/github/repo-size/AJM432/Mandelbrot-Viewer?style=flat)
+![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=blue&color=white) 
+![](https://img.shields.io/tokei/lines/github/AJM432/Mandelbrot-Viewer) 
+![](https://img.shields.io/github/repo-size/AJM432/Mandelbrot-Viewer?style=flat)
  
  ## Usage
 - Zoom in on the fractal by left clicking your mouse anywhere on the screen.
