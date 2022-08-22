@@ -1,5 +1,8 @@
 
 # Mandelbrot-Viewer
+
+![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=blue&color=white) ![](https://img.shields.io/tokei/lines/github/AJM432/Mandelbrot-Viewer) ![](https://img.shields.io/github/repo-size/AJM432/Mandelbrot-Viewer?style=flat)
+
 An interactive Mandelbrot Set explorer
  
  ## Usage
